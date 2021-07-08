@@ -19,7 +19,7 @@ START:
 			SETB  ET0
 			LJMP  $
 
-TIMER0:		CLR   TRO
+TIMER0:			CLR   TRO
 			MOV   TH0, 100
 			MOV   TL0, 100
 			MOV   AH, CALC
