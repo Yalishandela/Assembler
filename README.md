@@ -1,2 +1,2 @@
-# Assembler
+# Assembly
 Repo for assembler
