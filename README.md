@@ -1,2 +1,2 @@
 # Assembly
-Repo for assembler
+Assembly project for dioda and buzzer
