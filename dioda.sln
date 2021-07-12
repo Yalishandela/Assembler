@@ -1,31 +1,38 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1525
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dioda", "dioda\dioda.vcxproj", "{C3BCA7C1-BA95-4C42-A17F-E7C8ECA13622}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
-		Release|x64 = Release|x64
-		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C3BCA7C1-BA95-4C42-A17F-E7C8ECA13622}.Debug|x64.ActiveCfg = Debug|x64
-		{C3BCA7C1-BA95-4C42-A17F-E7C8ECA13622}.Debug|x64.Build.0 = Debug|x64
-		{C3BCA7C1-BA95-4C42-A17F-E7C8ECA13622}.Debug|x86.ActiveCfg = Debug|Win32
-		{C3BCA7C1-BA95-4C42-A17F-E7C8ECA13622}.Debug|x86.Build.0 = Debug|Win32
-		{C3BCA7C1-BA95-4C42-A17F-E7C8ECA13622}.Release|x64.ActiveCfg = Release|x64
-		{C3BCA7C1-BA95-4C42-A17F-E7C8ECA13622}.Release|x64.Build.0 = Release|x64
-		{C3BCA7C1-BA95-4C42-A17F-E7C8ECA13622}.Release|x86.ActiveCfg = Release|Win32
-		{C3BCA7C1-BA95-4C42-A17F-E7C8ECA13622}.Release|x86.Build.0 = Release|Win32
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {A563A8AF-7940-430D-8B1E-B94B656B436D}
-	EndGlobalSection
-EndGlobal
+.model small
+.data
+.code
+
+LED_MASK			EQU	10000000B
+				LJMP	START
+				ORG	0BH
+				LJMP	TIMER0
+				ORG	100H
+
+START:			
+				MOV	TMOD, A
+				MOV	A, #39
+				MOV	TH0, A
+				MOV	A, #39
+				MOV	TL0, A
+				SETB	EA
+				SETB	ET0
+				SETB	TR0
+				LJMP	$
+
+TIMER0:			
+				CLR	TR0
+				MOV	TH0, #39
+				MOV	TL0, #39
+				SETB	TR0
+				MOV	A, CALC
+				XRL	P1, #LED_MASK
+
+TIMER1:
+				SETB	LED
+				CLR	TR0
+				MOV	TH0, #220
+				MOV	TL0, #0
+				SETB	TR0
+				XRL	P1, #LED_MASK
+				RETI
+				
