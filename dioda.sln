@@ -2,37 +2,37 @@
 .data
 .code
 
-LED_MASK			EQU	10000000B
-				LJMP	START
-				ORG	0BH
-				LJMP	TIMER0
-				ORG	100H
+LED_MASK	EQU	10000000B
+		LJMP	START
+		ORG	0BH
+		LJMP	TIMER0
+		ORG	100H
 
 START:			
-				MOV	TMOD, A
-				MOV	A, #39
-				MOV	TH0, A
-				MOV	A, #39
-				MOV	TL0, A
-				SETB	EA
-				SETB	ET0
-				SETB	TR0
-				LJMP	$
+		MOV	TMOD, A
+		MOV	A, #39
+		MOV	TH0, A
+		MOV	A, #39
+		MOV	TL0, A
+		SETB	EA
+		SETB	ET0
+		SETB	TR0
+		LJMP	$
 
 TIMER0:			
-				CLR	TR0
-				MOV	TH0, #39
-				MOV	TL0, #39
-				SETB	TR0
-				MOV	A, CALC
-				XRL	P1, #LED_MASK
+		CLR	TR0
+		MOV	TH0, #39
+		MOV	TL0, #39
+		SETB	TR0
+		MOV	A, CALC
+		XRL	P1, #LED_MASK
 
 TIMER1:
-				SETB	LED
-				CLR	TR0
-				MOV	TH0, #220
-				MOV	TL0, #0
-				SETB	TR0
-				XRL	P1, #LED_MASK
-				RETI
+		SETB	LED
+		CLR	TR0
+		MOV	TH0, #220
+		MOV	TL0, #0
+		SETB	TR0
+		XRL	P1, #LED_MASK
+		RETI
 				
